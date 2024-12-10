@@ -35,7 +35,8 @@ def update():
                 tela = 4  # tela de jogo (não implementada ainda)
             elif opcao_selecionada == 1:  # "Sair"
                 pyxel.quit()
-
+    # elif tela ==4:
+    #     : back de quando for executar o jogo (ainda não implementado )
 def draw():
     pyxel.cls(0)  
     if tela == 1:  
@@ -56,6 +57,8 @@ def draw():
         for i, opcao in enumerate(opcoes_menu):
             cor = 8 if i == opcao_selecionada else 7  # Destaque para a opção selecionada
             pyxel.text(35, 50 + i * 10, opcao, cor)
+    # elif tela == 4:
+    #     : front da gameplay (ainda não implementado )
 
 
 pyxel.init(180, 120, title="A La Cria")
