@@ -54,7 +54,7 @@ def draw():
     elif tela == 3:  # Menu principal
         pyxel.text(25, 25, "Menu Principal", 7)
         for i, opcao in enumerate(opcoes_menu):
-            cor = 9 if i == opcao_selecionada else 7  # Destaque para a opção selecionada
+            cor = 8 if i == opcao_selecionada else 7  # Destaque para a opção selecionada
             pyxel.text(35, 50 + i * 10, opcao, cor)
 
 
