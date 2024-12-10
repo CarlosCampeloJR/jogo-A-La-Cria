@@ -30,7 +30,7 @@ def update():
             opcao_selecionada = (opcao_selecionada + 1) % len(opcoes_menu)
 
         # Seleção de uma opção
-        if pyxel.btnp(pyxel.KEY_ENTER):
+        if pyxel.btnp(pyxel.KEY_KP_ENTER):
             if opcao_selecionada == 0:  # "Iniciar Jogo"
                 tela = 4  # tela de jogo (não implementada ainda)
             elif opcao_selecionada == 1:  # "Sair"
