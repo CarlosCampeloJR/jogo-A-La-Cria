@@ -7,7 +7,7 @@ nvx = [1, 1, 1, 1, 1, 1, 1]
 def update():
     for i in range(len(nx)):
         nvx[i] += 0.001  # Incrementa a velocidade gradualmente
-        nx[i] = nx[i] + nvx[i] * 4
+        nx[i] = nx[i] + nvx[i]
         if nx[i] > px.width:
             nx[i] = -180  # Reposiciona o objeto para o início da tela
 
@@ -20,4 +20,3 @@ def draw():
 
 px.init(340, 180, title='Hello', fps=60)
 px.run(update, draw)
-
