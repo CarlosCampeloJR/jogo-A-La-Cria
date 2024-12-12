@@ -61,5 +61,5 @@ def draw():
     #     : front da gameplay (ainda não implementado )
 
 
-pyxel.init(180, 120, title="A La Cria")
+pyxel.init(340, 180, title="A La Cria")
 pyxel.run(update, draw)

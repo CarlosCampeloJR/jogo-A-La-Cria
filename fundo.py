@@ -16,7 +16,7 @@ def draw():
     for i in range(len(nx)):
         x = nx[i]
         y = ny[i]
-        px.blt(x, y, 1, 0, -1, 180, 31)  # Ajuste a largura da imagem para 180
+        px.blt(x, y, 1, 0, -1, 200, 31)  # Ajuste a largura da imagem para 180
 
-px.init(340, 180, title='Hello', fps=60)
+px.init(340, 180, title='A-La-Cria', fps=60)
 px.run(update, draw)
