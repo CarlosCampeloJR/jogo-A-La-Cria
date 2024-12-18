@@ -1,1 +1,0 @@
-print ('hello word 2')
