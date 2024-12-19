@@ -177,7 +177,7 @@ def reiniciar_jogo():
     personagem_no_chao = True  # Indica se o personagem está no chão
     obstaculos = []  # Limpa a lista de obstáculos
     is_game_over = False  # Reseta o flag de game over
-    multiplicador_velocidade = 1.0  # Reseta o multiplicador de velocidade
+    multiplicador_velocidade = 3.0  # Reseta o multiplicador de velocidade
 
 # Inicializa Pyxel
 px.init(340, 180, title='A-La-Cria', fps=60)
