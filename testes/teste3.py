@@ -21,7 +21,7 @@ personagem_no_chao = True  # Indica se o personagem está no chão
 obstaculos = []  # Lista de obstáculos
 obstaculo_vx = 3  # Velocidade inicial dos obstáculos
 obstaculo_tamanho = 17  # Tamanho dos obstáculos
-obstaculo_alturas = [134]  # Alturas possíveis dos obstáculos
+obstaculo_alturas = [134, 80]  # Alturas possíveis dos obstáculos
 
 # Variáveis para o multiplicador
 multiplicador_velocidade = 1.5  # Multiplicador de velocidade dos obstáculos
