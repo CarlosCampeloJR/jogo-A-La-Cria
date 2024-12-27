@@ -5,7 +5,7 @@ import random
 tela = 1  
 contador = 0
 opcao_selecionada = 0
-opcoes_menu = ["Iniciar Jogo", "Sair"]
+opcoes_menu = ["Iniciar Jogo", "Sair"]  
 
 # Variáveis do jogo
 nx = [0, 170, 340]  # Posições horizontais iniciais do chão
@@ -100,19 +100,20 @@ def gerar_obstaculo():
         x = px.width  # Posição inicial do obstáculo na lateral direita
         y = random.choice(obstaculo_alturas)  # Escolhe uma altura aleatória para o obstáculo
 
-        if y == 134:  # Somente altera os tamanhos para obstáculos no nível 134
-            while True:
-                largura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-                altura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-
-                # Garante que o obstáculo não seja um quadrado de 2x2 blocos
-                if largura != 2 * obstaculo_tamanho or altura != 2 * obstaculo_tamanho:
-                    break
+        if y == 134:  # Para obstáculos na altura 134
+            tipo_obstaculo = random.choice(["simples", "duplo"])
+            if tipo_obstaculo == "simples":
+                largura = obstaculo_tamanho
+                altura = obstaculo_tamanho * 2
+                obstaculos.append([x, y - altura + obstaculo_tamanho, largura, altura])
+            elif tipo_obstaculo == "duplo":
+                largura = obstaculo_tamanho * 2
+                altura = obstaculo_tamanho
+                obstaculos.append([x, y, largura, altura])
         else:
             largura = obstaculo_tamanho  # Tamanho padrão
             altura = obstaculo_tamanho
-
-        obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo com largura e altura diferentes
+            obstaculos.append([x, y, largura, altura])
 
 # Função para desenhar o chão
 def desenhar_chao():
@@ -188,6 +189,7 @@ def draw():
         px.text(25, 65, "Nicolas Gauterio Xavier", 7)
     elif tela == 2:  # Tela do título
         texto = "A La Cria"
+
         largura_texto = len(texto) * 4
         x = (px.width - largura_texto) // 2
         y = px.height // 2 - 10
@@ -235,7 +237,7 @@ def reiniciar_jogo():
     tela = 4  
 
 # Inicializa o pyxel
-px.init(340, 180, title="A La Cria", fps= 60)
+px.init(340, 180, title="A La Cria", fps=60)
 
 # Executa o loop do jogo
 px.run(update, draw)

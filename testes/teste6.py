@@ -101,18 +101,15 @@ def gerar_obstaculo():
         y = random.choice(obstaculo_alturas)  # Escolhe uma altura aleatória para o obstáculo
 
         if y == 134:  # Somente altera os tamanhos para obstáculos no nível 134
-            while True:
-                largura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-                altura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
+            largura = obstaculo_tamanho  # Apenas largura básica
+            altura = obstaculo_tamanho * 2  # Altura dupla
 
-                # Garante que o obstáculo não seja um quadrado de 2x2 blocos
-                if largura != 2 * obstaculo_tamanho or altura != 2 * obstaculo_tamanho:
-                    break
+            # Adiciona o obstáculo de altura dupla
+            obstaculos.append([x, y - altura + obstaculo_tamanho, largura, altura])
         else:
             largura = obstaculo_tamanho  # Tamanho padrão
             altura = obstaculo_tamanho
-
-        obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo com largura e altura diferentes
+            obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo padrão
 
 # Função para desenhar o chão
 def desenhar_chao():
@@ -188,6 +185,7 @@ def draw():
         px.text(25, 65, "Nicolas Gauterio Xavier", 7)
     elif tela == 2:  # Tela do título
         texto = "A La Cria"
+
         largura_texto = len(texto) * 4
         x = (px.width - largura_texto) // 2
         y = px.height // 2 - 10

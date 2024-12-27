@@ -101,18 +101,19 @@ def gerar_obstaculo():
         y = random.choice(obstaculo_alturas)  # Escolhe uma altura aleatória para o obstáculo
 
         if y == 134:  # Somente altera os tamanhos para obstáculos no nível 134
-            while True:
-                largura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-                altura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
+            largura = obstaculo_tamanho  # Apenas largura básica
+            altura = obstaculo_tamanho  # Altura básica
 
-                # Garante que o obstáculo não seja um quadrado de 2x2 blocos
-                if largura != 2 * obstaculo_tamanho or altura != 2 * obstaculo_tamanho:
-                    break
+            # Adiciona o obstáculo inferior
+            obstaculos.append([x, y, largura, altura])
+
+            # Chance de adicionar um segundo bloco acima
+            if random.choice([True, False]):
+                obstaculos.append([x, y - altura, largura, altura])  # Bloco superior
         else:
             largura = obstaculo_tamanho  # Tamanho padrão
             altura = obstaculo_tamanho
-
-        obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo com largura e altura diferentes
+            obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo padrão
 
 # Função para desenhar o chão
 def desenhar_chao():

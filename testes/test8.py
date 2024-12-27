@@ -1,11 +1,12 @@
 import pyxel as px
 import random
+import time
 
 # Variáveis do menu e telas
 tela = 1  
 contador = 0
 opcao_selecionada = 0
-opcoes_menu = ["Iniciar Jogo", "Sair"]
+opcoes_menu = ["Iniciar Jogo", "Sair"]  
 
 # Variáveis do jogo
 nx = [0, 170, 340]  # Posições horizontais iniciais do chão
@@ -27,6 +28,7 @@ obstaculo_alturas = [134, 80]  # Alturas possíveis dos obstáculos
 multiplicador_velocidade = 1.5  # Multiplicador de velocidade dos obstáculos
 
 is_game_over = False  # Flag de game over
+inicio_jogo = None  # Marca o início do jogo
 
 # Função para atualizar o chão
 def atualizar_chao():
@@ -100,19 +102,20 @@ def gerar_obstaculo():
         x = px.width  # Posição inicial do obstáculo na lateral direita
         y = random.choice(obstaculo_alturas)  # Escolhe uma altura aleatória para o obstáculo
 
-        if y == 134:  # Somente altera os tamanhos para obstáculos no nível 134
-            while True:
-                largura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-                altura = random.randint(1, 2) * obstaculo_tamanho  # 1x ou 2x o tamanho básico
-
-                # Garante que o obstáculo não seja um quadrado de 2x2 blocos
-                if largura != 2 * obstaculo_tamanho or altura != 2 * obstaculo_tamanho:
-                    break
+        if y == 134:  # Para obstáculos na altura 134
+            tipo_obstaculo = random.choice(["simples", "duplo"])
+            if tipo_obstaculo == "simples":
+                largura = obstaculo_tamanho
+                altura = obstaculo_tamanho * 2
+                obstaculos.append([x, y - altura + obstaculo_tamanho, largura, altura])
+            elif tipo_obstaculo == "duplo":
+                largura = obstaculo_tamanho * 2
+                altura = obstaculo_tamanho
+                obstaculos.append([x, y, largura, altura])
         else:
             largura = obstaculo_tamanho  # Tamanho padrão
             altura = obstaculo_tamanho
-
-        obstaculos.append([x, y, largura, altura])  # Adiciona o obstáculo com largura e altura diferentes
+            obstaculos.append([x, y, largura, altura])
 
 # Função para desenhar o chão
 def desenhar_chao():
@@ -131,7 +134,7 @@ def desenhar_obstaculos():
 
 # Função de atualização
 def update():
-    global is_game_over, multiplicador_velocidade, tela, opcao_selecionada, contador
+    global is_game_over, multiplicador_velocidade, tela, opcao_selecionada, contador, inicio_jogo
 
     if tela == 1:  # Tela de créditos
         contador += 1
@@ -152,6 +155,7 @@ def update():
         if px.btnp(px.KEY_KP_ENTER):
             if opcao_selecionada == 0:  # Iniciar Jogo
                 tela = 4  # Muda para a tela de jogo
+                inicio_jogo = time.time()  # Marca o início do jogo
             elif opcao_selecionada == 1:  # Sair
                 px.quit()
 
@@ -173,8 +177,9 @@ def update():
 
         multiplicador_velocidade += 0.0001  # Aumenta a velocidade com o tempo
 
-        if len(obstaculos) == 0 or obstaculos[-1][0] < px.width - 200:
-            gerar_obstaculo()
+        if inicio_jogo and time.time() - inicio_jogo >= 4:  # Só gera obstáculos após 4 segundos
+            if len(obstaculos) == 0 or obstaculos[-1][0] < px.width - 200:
+                gerar_obstaculo()
 
 # Função de desenho
 def draw():
@@ -188,6 +193,7 @@ def draw():
         px.text(25, 65, "Nicolas Gauterio Xavier", 7)
     elif tela == 2:  # Tela do título
         texto = "A La Cria"
+
         largura_texto = len(texto) * 4
         x = (px.width - largura_texto) // 2
         y = px.height // 2 - 10
@@ -224,7 +230,7 @@ def draw():
         desenhar_obstaculos()
 
 def reiniciar_jogo():
-    global personagem_x, personagem_y, personagem_velocidade_vertical, personagem_no_chao, obstaculos, is_game_over, multiplicador_velocidade, tela
+    global personagem_x, personagem_y, personagem_velocidade_vertical, personagem_no_chao, obstaculos, is_game_over, multiplicador_velocidade, tela, inicio_jogo
     personagem_x = 6
     personagem_y = 133
     personagem_velocidade_vertical = 0
@@ -233,9 +239,10 @@ def reiniciar_jogo():
     is_game_over = False
     multiplicador_velocidade = 1.5  # Velocidade inicial dos obstáculos
     tela = 4  
+    inicio_jogo = None
 
 # Inicializa o pyxel
-px.init(340, 180, title="A La Cria", fps= 60)
+px.init(340, 180, title="A La Cria", fps=60)
 
 # Executa o loop do jogo
 px.run(update, draw)
