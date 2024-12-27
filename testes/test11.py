@@ -247,3 +247,7 @@ def reiniciar_jogo():
     multiplicador_velocidade = 1.5  # Velocidade inicial dos obstáculos
     inicio_jogo = time.time()  # Reinicia o tempo do jogo
     pontuacao = 0  # Reinicia a pontuação
+
+# Inicialização do Pyxel e execução do jogo
+px.init(340, 180, title="A La Cria", fps=60)
+px.run(update, draw)
