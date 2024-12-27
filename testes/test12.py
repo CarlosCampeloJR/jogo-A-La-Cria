@@ -153,7 +153,7 @@ def update():
         elif px.btnp(px.KEY_DOWN):
             opcao_selecionada = (opcao_selecionada + 1) % len(opcoes_menu)
 
-        if px.btnp(px.KEY_INSERT):
+        if px.btnp(px.KEY_BACKSPACE):
             if opcao_selecionada == 0:  # Iniciar Jogo
                 tela = 4  # Muda para a tela de jogo
                 inicio_jogo = time.time()  # Marca o início do jogo
@@ -207,6 +207,14 @@ def draw():
         for i, opcao in enumerate(opcoes_menu):
             cor = 8 if i == opcao_selecionada else 7
             px.text(35, 50 + i * 10, opcao, cor)
+
+        # Mensagem adicional informando sobre as setas e o Backspace
+        texto_instrucao = "Use as setas para navegar e BACKSPACE para selecionar"
+        largura_texto_instrucao = len(texto_instrucao) * 4
+        x_instrucao = (px.width - largura_texto_instrucao) // 2
+        y_instrucao = px.height - 20
+        px.text(x_instrucao, y_instrucao, texto_instrucao, 7)
+
     elif tela == 4:  # Jogo
         if is_game_over:
             texto_game_over = "GAME OVER!"
